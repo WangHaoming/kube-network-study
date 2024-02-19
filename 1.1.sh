@@ -5,7 +5,7 @@ ip netns add netns1
 # start up the "lo" NIC
 ip netns exec netns1 ip link set dev lo up
 # ping lo
-ip netns exec netns1 ping 127.0.0.1
+ip netns exec netns1 ping 127.0.0.1ip
 
 # add veth pair
 ip link add veth0 type veth peer name veth1
@@ -34,6 +34,10 @@ ip link set br0 up
 
 ip addr add 1.2.3.102/24 dev veth1
 ip addr add 1.2.3.101/24 dev veth0
+ip addr add 192.168.0.2/24 dev veth1
+ip addr add 192.168.0.3/24 dev veth0
+
+
 
 # link veth0 to br0
 ip link set dev veth0 master br0
