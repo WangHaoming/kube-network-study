@@ -34,7 +34,7 @@ echo 1 > /proc/sys/net/ipv4/conf/veth2/accept_local
 echo 0 > /proc/sys/net/ipv4/conf/all/rp_filter
 ```
 
-另一个发现是从`lo`接口上抓取数据数据包，发现从veth0发送的ICMP数据包，`lo`接口也接受到了，感觉是数据包是陷阱过`lo`然后在发往`veth0`和`veth1`。
+另一个发现是从`lo`接口上抓取数据数据包，发现从veth0发送的ICMP数据包，`lo`接口也接受到了，感觉是数据包是先经过`lo`然后再发往`veth0`和`veth1`。
 
 `echo 0 > /proc/sys/net/ipv4/conf/all/rp_filter` 
 rp_filter 是 Linux 内核提供的一个安全特性，旨在防止 IP 欺骗攻击。它通过检查进入的数据包的源 IP 地址是否有一个合理的路径返回到源地址来工作。如果没有，这些数据包会被丢弃。这是一种确保网络流量有效性的方法，有助于提高网络安全性。
