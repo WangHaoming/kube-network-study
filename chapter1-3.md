@@ -26,12 +26,14 @@ ping失败，可是使用`tcpdump -n -i veth0`来抓取在veth0上的网络包�
 00:50:25.112480 ARP, Request who-has 192.168.0.2 tell 192.168.0.3, length 28
 00:55:19.034665 ARP, Request who-has 192.168.0.2 tell 192.168.0.3, length 28
 ```
-尝试修改如下网络配置，就可以ping通
+尝试修改如下网络配置[2]，就可以ping通
 
 ```
 echo 1 > /proc/sys/net/ipv4/conf/veth1/accept_local
 echo 1 > /proc/sys/net/ipv4/conf/veth2/accept_local
 echo 0 > /proc/sys/net/ipv4/conf/all/rp_filter
+echo 0 > /proc/sys/net/ipv4/conf/veth1/rp_filter
+echo 0 > /proc/sys/net/ipv4/conf/veth2/rp_filter
 ```
 
 另一个发现是从`lo`接口上抓取数据数据包，发现从veth0发送的ICMP数据包，`lo`接口也接受到了，感觉是数据包是先经过`lo`然后再发往`veth0`和`veth1`。
@@ -48,5 +50,10 @@ rp_filter 是 Linux 内核提供的一个安全特性，旨在防止 IP 欺骗�
 ## 把Veth连接的bridge上
 
 
+
+
+---
+[1] https://blog.csdn.net/iceman1952/article/details/119487616
+[2] https://www.cnblogs.com/bakari/p/10613710.html
 
 
