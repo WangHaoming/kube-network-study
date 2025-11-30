@@ -64,6 +64,19 @@ ip link set dev veth0 master br0
 bridge link
 ```
 
+这个时候从veth0就已经ping不通veth1了，那么我们需要把veth0的IP让给br0
+
+```
+ip addr del 192.168.0.3/24 dev veth0
+ip addr add 192.168.0.3/24 dev br0
+```
+```
+ip link set dev ens4 master br0
+
+
+
+
+
 
 
 
