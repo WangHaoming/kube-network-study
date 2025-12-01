@@ -72,6 +72,25 @@ ip addr add 192.168.0.3/24 dev br0
 ```
 ```
 ip link set dev ens4 master br0
+ip addr del 10.128.0.24/32 dev ens4
+ip route add 10.128.0.0/24 dev ens4 scope link
+```
+
+得个br0换一个IP
+
+```
+
+ip addr del 192.168.0.3/24 dev br0
+ip addr add 10.128.0.24/24 dev br0
+
+```
+删除route
+
+```
+ip route del 10.128.0.0/24 dev ens4 scope link
+```
+
+
 
 
 
